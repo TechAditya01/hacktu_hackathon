@@ -1,0 +1,93 @@
+﻿input_schema:
+  type: object
+  properties:
+    Age:
+      type: integer
+      example: 30
+    AnnualIncome:
+      type: number
+      example: 60000
+    CreditScore:
+      type: number
+      example: 700
+    EmploymentStatus:
+      type: string
+      enum: [employed, self-employed, unemployed]
+      example: employed
+    EducationLevel:
+      type: string
+      enum: [high school, bachelor, master, doctorate, associate]
+      example: bachelor
+    Experience:
+      type: number
+      example: 10
+    LoanAmount:
+      type: number
+      example: 20000
+    LoanDuration:
+      type: number
+      example: 36
+    MaritalStatus:
+      type: string
+      enum: [married, single, divorced, widowed]
+      example: married
+    NumberOfDependents:
+      type: integer
+      example: 0
+    HomeOwnershipStatus:
+      type: string
+      enum: [own, rent, mortgage, other]
+      example: own
+    MonthlyDebtPayments:
+      type: number
+      example: 500
+    LoanPurpose:
+      type: string
+      enum: [auto, home, education, "debt consolidation", other]
+      example: auto
+    SavingsAccountBalance:
+      type: number
+      example: 10000
+    CheckingAccountBalance:
+      type: number
+      example: 5000
+    MonthlyIncome:
+      type: number
+      example: 4000
+    JobTenure:
+      type: number
+      example: 5
+    NetWorth:
+      type: number
+      example: 150000
+    BaseInterestRate:
+      type: number
+      example: 3.5
+    InterestRate:
+      type: number
+      example: 5.0
+    MonthlyLoanPayment:
+      type: number
+      example: 600
+  required:
+    - Age
+    - AnnualIncome
+    - CreditScore
+    - EmploymentStatus
+    - EducationLevel
+    - Experience
+    - LoanAmount
+    - LoanDuration
+    - MaritalStatus
+    - NumberOfDependents
+    - HomeOwnershipStatus
+    - MonthlyDebtPayments
+    - LoanPurpose
+    - SavingsAccountBalance
+    - CheckingAccountBalance
+    - MonthlyIncome
+    - JobTenure
+    - NetWorth
+    - BaseInterestRate
+    - InterestRate
+    - MonthlyLoanPayment

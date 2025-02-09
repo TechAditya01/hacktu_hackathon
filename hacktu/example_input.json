@@ -1,0 +1,23 @@
+{
+  "Age": 30,
+  "AnnualIncome": 60000,
+  "CreditScore": 700,
+  "EmploymentStatus": "employed",
+  "EducationLevel": "bachelor",
+  "Experience": 10,
+  "LoanAmount": 20000,
+  "LoanDuration": 36,
+  "MaritalStatus": "married",
+  "NumberOfDependents": 0,
+  "HomeOwnershipStatus": "own",
+  "MonthlyDebtPayments": 500,
+  "LoanPurpose": "auto",
+  "SavingsAccountBalance": 10000,
+  "CheckingAccountBalance": 5000,
+  "MonthlyIncome": 4000,
+  "JobTenure": 5,
+  "NetWorth": 150000,
+  "BaseInterestRate": 3.5,
+  "InterestRate": 5.0,
+  "MonthlyLoanPayment": 600
+}

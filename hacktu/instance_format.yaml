@@ -1,0 +1,22 @@
+﻿instance:
+  Age: <integer>           # e.g., 30
+  AnnualIncome: <number>   # e.g., 60000
+  CreditScore: <number>    # e.g., 700
+  EmploymentStatus: <string>   # one of: employed, self-employed, unemployed
+  EducationLevel: <string>     # one of: high school, bachelor, master, doctorate, associate
+  Experience: <number>       # years of experience, e.g., 10
+  LoanAmount: <number>       # e.g., 20000
+  LoanDuration: <number>     # in months, e.g., 36
+  MaritalStatus: <string>    # one of: married, single, divorced, widowed
+  NumberOfDependents: <integer>  # e.g., 0
+  HomeOwnershipStatus: <string>  # one of: own, rent, mortgage, other
+  MonthlyDebtPayments: <number>  # e.g., 500
+  LoanPurpose: <string>      # e.g., auto, home, education, debt consolidation, other
+  SavingsAccountBalance: <number> # e.g., 10000
+  CheckingAccountBalance: <number> # e.g., 5000
+  MonthlyIncome: <number>    # e.g., 4000
+  JobTenure: <number>        # e.g., 5
+  NetWorth: <number>         # e.g., 150000
+  BaseInterestRate: <number> # e.g., 3.5
+  InterestRate: <number>     # e.g., 5.0
+  MonthlyLoanPayment: <number>   # e.g., 600

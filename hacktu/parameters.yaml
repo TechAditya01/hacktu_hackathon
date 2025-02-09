@@ -1,0 +1,85 @@
+﻿parameters:
+  Age:
+    type: integer
+    description: "Applicant's age"
+    example: 30
+  AnnualIncome:
+    type: number
+    description: "Applicant's annual income"
+    example: 60000
+  CreditScore:
+    type: number
+    description: "Applicant's credit score"
+    example: 700
+  EmploymentStatus:
+    type: string
+    description: "Employment status; e.g., employed, self-employed, unemployed"
+    example: "employed"
+  EducationLevel:
+    type: string
+    description: "Education level; e.g., high school, bachelor, master, doctorate, associate"
+    example: "bachelor"
+  Experience:
+    type: number
+    description: "Years of work experience"
+    example: 10
+  LoanAmount:
+    type: number
+    description: "Requested loan amount"
+    example: 20000
+  LoanDuration:
+    type: number
+    description: "Loan duration in months"
+    example: 36
+  MaritalStatus:
+    type: string
+    description: "Marital status; e.g., married, single, divorced, widowed"
+    example: "married"
+  NumberOfDependents:
+    type: integer
+    description: "Number of dependents"
+    example: 0
+  HomeOwnershipStatus:
+    type: string
+    description: "Home ownership status; e.g., own, rent, mortgage, other"
+    example: "own"
+  MonthlyDebtPayments:
+    type: number
+    description: "Monthly debt payments"
+    example: 500
+  LoanPurpose:
+    type: string
+    description: "Purpose of the loan; e.g., auto, home, education, debt consolidation, other"
+    example: "auto"
+  SavingsAccountBalance:
+    type: number
+    description: "Balance in savings account"
+    example: 10000
+  CheckingAccountBalance:
+    type: number
+    description: "Balance in checking account"
+    example: 5000
+  MonthlyIncome:
+    type: number
+    description: "Monthly income"
+    example: 4000
+  JobTenure:
+    type: number
+    description: "Job tenure in years"
+    example: 5
+  NetWorth:
+    type: number
+    description: "Net worth of the applicant"
+    example: 150000
+  BaseInterestRate:
+    type: number
+    description: "Base interest rate"
+    example: 3.5
+  InterestRate:
+    type: number
+    description: "Applicable interest rate"
+    example: 5.0
+  MonthlyLoanPayment:
+    type: number
+    description: "Expected monthly loan payment"
+    example: 600
