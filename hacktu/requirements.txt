@@ -3,3 +3,5 @@ numpy==2.2.2
 pandas==2.2.3
 scikit_learn==1.4.0
 torch==2.6.0
+psycopg2==2.9.10
+flask==2.2.5
