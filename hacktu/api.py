@@ -4,13 +4,19 @@ import torch
 import pandas as pd
 from flask import Flask, request, jsonify
 import json
+import os
+import psycopg2  # Import the psycopg2 library
 
 app = Flask(__name__)
 
+# Database configuration from environment variables
+DB_HOST = os.environ.get("DB_HOST", "localhost")  # Default to localhost
+DB_NAME = os.environ.get("DB_NAME", "loan_db")    # Replace with your DB name
+DB_USER = os.environ.get("DB_USER", "loan_user")    # Replace with your username
+DB_PASS = os.environ.get("DB_PASS", "loan_password") # Replace with your password
+DB_PORT = os.environ.get("DB_PORT", "5432") # Replace with your port
+
 # Load the model
-# model = MLP(input_dim=26, num_classes=2)
-# model.load_state_dict(torch.load('loan_approval_model.pth'))
-# model.eval()  # Set the model to evaluation mode
 model = joblib.load('model.joblib')
 
 # Load the preprocessor
@@ -19,10 +25,37 @@ preprocessor = joblib.load('loan_approval_preprocessor.joblib')
 # Load label encoders
 label_encoders = joblib.load('label_encoders.joblib')
 
-def get_JSON_input(example_input):
-    with open(example_input, 'r') as f:
-        user_data = json.load(f)
-    return user_data
+def get_user_data_from_db(user_id):
+    try:
+        # Establish database connection
+        conn = psycopg2.connect(
+            host=DB_HOST,
+            port=DB_PORT,
+            database=DB_NAME,
+            user=DB_USER,
+            password=DB_PASS
+        )
+        cur = conn.cursor()
+
+        # Fetch user data from the database
+        cur.execute("SELECT Age, AnnualIncome, CreditScore, EmploymentStatus, EducationLevel, Experience, LoanAmount, LoanDuration, MaritalStatus, NumberOfDependents, HomeOwnershipStatus, MonthlyDebtPayments, LoanPurpose, SavingsAccountBalance, CheckingAccountBalance, MonthlyIncome, JobTenure, NetWorth, BaseInterestRate, InterestRate, MonthlyLoanPayment FROM loan_application WHERE id = %s;", (user_id,))  # Replace 'users' with your table name
+        user_data = cur.fetchone()
+
+        if user_data:
+            # Convert the tuple to a dictionary, assuming the order of columns
+            # matches the order expected by your preprocessing
+            column_names = ['Age', 'AnnualIncome', 'CreditScore', 'EmploymentStatus', 'EducationLevel', 'Experience', 'LoanAmount', 'LoanDuration', 'MaritalStatus', 'NumberOfDependents', 'HomeOwnershipStatus', 'MonthlyDebtPayments', 'LoanPurpose', 'SavingsAccountBalance', 'CheckingAccountBalance', 'MonthlyIncome', 'JobTenure', 'NetWorth', 'BaseInterestRate', 'InterestRate', 'MonthlyLoanPayment']
+            user_data = dict(zip(column_names, user_data))
+        else:
+            return None
+
+        cur.close()
+        conn.close()
+        return user_data
+
+    except Exception as e:
+        print(f"Database error: {e}")
+        return None
 
 def preprocess_input(user_data):
     numeric_cols = [
@@ -89,15 +122,25 @@ def predict():
     try:
         # Get data from request
         data = request.get_json()
+        user_id = data.get('user_id')  # Expect a 'user_id' in the request
 
+        if not user_id:
+            return jsonify({'error': 'Missing user_id'}), 400
+
+        # Fetch user data from the database
+        user_data = get_user_data_from_db(user_id)
+        if not user_data:
+            return jsonify({'error': 'User not found'}), 404
+        
         # Preprocess input data
-        user_tensor = preprocess_input(data)
+        user_tensor = preprocess_input(user_data)
 
         # Make prediction
         with torch.no_grad():
+            model.eval()
             prediction = model(user_tensor)
-            probabilities = torch.sigmoid(prediction)
-            predicted_class = (probabilities > 0.5).int()
+            # probabilities = torch.sigmoid(prediction)
+            # predicted_class = (probabilities > 0.5).int()
             # Get the predicted target by selecting the index with the highest logit
             # print("Prediction:", prediction)
             predicted_class = torch.argmax(prediction, dim=1)
@@ -107,7 +150,7 @@ def predict():
             else:
                 result = "The model predicts that the loan will be approved."
 
-        return jsonify({'prediction': result})
+        return jsonify({'prediction': predicted_class.item()})
 
     except Exception as e:
         return jsonify({'error': str(e)})
